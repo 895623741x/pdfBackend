@@ -3,6 +3,7 @@ const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 const PORT = (process.env.PORT = 8000);
@@ -83,6 +84,6 @@ app.get("/download", (req, res) => {
    });
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 8000, () => {
    console.log("app is running at port 8000");
 });
