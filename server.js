@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/upload", (req, res) => {
+   res.send("this is the upload zone");
    upload(req, res, (err) => {
       if (err) {
          return res.status(500).json(err);
