@@ -39,50 +39,50 @@ app.get("/", (req, res) => {
    res.send("hello!");
 });
 
-app.post("/upload", (req, res) => {
-   upload(req, res, (err) => {
-      if (err) {
-         return res.status(500).json(err);
-      }
+// app.post("/upload", (req, res) => {
+//    upload(req, res, (err) => {
+//       if (err) {
+//          return res.status(500).json(err);
+//       }
 
-      return res.status(200).send(req.files);
-   });
-});
+//       return res.status(200).send(req.files);
+//    });
+// });
 
-app.post("/merge", upload, (req, res) => {
-   list = "";
-   if (req.files) {
-      req.files.forEach((file) => {
-         list += `${file.path}`;
-         list += " ";
-      });
+// app.post("/merge", upload, (req, res) => {
+//    list = "";
+//    if (req.files) {
+//       req.files.forEach((file) => {
+//          list += `${file.path}`;
+//          list += " ";
+//       });
 
-      console.log(list);
+//       console.log(list);
 
-      exec(`magick convert ${list} ${outputFileName}`, (err, stderr, stdout) => {
-         if (err) throw err;
+//       exec(`magick convert ${list} ${outputFileName}`, (err, stderr, stdout) => {
+//          if (err) throw err;
 
-         res.download(outputFileName, (err) => {
-            if (err) throw err;
+//          res.download(outputFileName, (err) => {
+//             if (err) throw err;
 
-            // req.files.forEach((file) => {
-            //    fs.unlinkSync(file.path);
-            // });
+//             // req.files.forEach((file) => {
+//             //    fs.unlinkSync(file.path);
+//             // });
 
-            // fs.unlinkSync(outputFileName);
-         });
-      });
-   }
-});
+//             // fs.unlinkSync(outputFileName);
+//          });
+//       });
+//    }
+// });
 
-app.get("/download", (req, res) => {
-   var file = path.join(__dirname, "output.pdf");
+// app.get("/download", (req, res) => {
+//    var file = path.join(__dirname, "output.pdf");
 
-   fs.readFile(file, (err, data) => {
-      res.contentType("application/pdf");
-      res.send(data);
-   });
-});
+//    fs.readFile(file, (err, data) => {
+//       res.contentType("application/pdf");
+//       res.send(data);
+//    });
+// });
 
 app.listen(process.env.PORT || 8000, () => {
    console.log("app is running at port 8000");
