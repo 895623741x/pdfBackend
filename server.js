@@ -72,12 +72,6 @@ app.post("/merge", upload, (req, res) => {
 
          res.download(outputFileName, (err) => {
             if (err) throw err;
-
-            // req.files.forEach((file) => {
-            //    fs.unlinkSync(file.path);
-            // });
-
-            // fs.unlinkSync(outputFileName);
          });
       });
    }
@@ -90,6 +84,12 @@ app.get("/download", (req, res) => {
       res.contentType("application/pdf");
       res.send(data);
    });
+
+   req.files.forEach((file) => {
+      fs.unlinkSync(file.path);
+   });
+
+   fs.unlinkSync(outputFileName);
 });
 
 app.listen(process.env.PORT || 8000, () => {
