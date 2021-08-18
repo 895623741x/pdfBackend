@@ -73,6 +73,10 @@ app.post("/merge", upload, (req, res) => {
          res.download(outputFileName, (err) => {
             if (err) throw err;
          });
+
+         req.files.forEach((file) => {
+            fs.unlinkSync(file.path);
+         });
       });
    }
 });
@@ -83,10 +87,6 @@ app.get("/download", (req, res) => {
    fs.readFile(file, (err, data) => {
       res.contentType("application/pdf");
       res.send(data);
-   });
-
-   req.files.forEach((file) => {
-      fs.unlinkSync(file.path);
    });
 
    fs.unlinkSync(outputFileName);
